@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Face Book</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="d-flex flex-row justify-content-center mt-5">
+            <div class="col-md-6">
+            <div class=" mt-5">
+                <textarea id="input_text" rows="4" cols="50" placeholder="what's on your mind?"></textarea>
+            </div>
+            <div >
+                <button class="ms-4" onclick="CreateFBPost()">Submit</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
+<script>
+    function CreateFBPost() {
+        var message = document.getElementById('input_text').value
+        if (!message) {
+            alert("Please Say What's On your Mind")
+            return
+        }
+        $.ajax({
+
+            url: '/metaapi/post_on_fb/',
+            type: 'POST',
+            data: {
+                'message': message
+            },
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+                alert(data.message)
+
+            },
+            error: function (err) {
+                console.log(err)
+            }
+
+        })
+    }
+</script>
+
+</html>
